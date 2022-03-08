@@ -1,0 +1,94 @@
+version: "3.7"
+services:
+  aggregator-app:
+    build: ./aggregator
+    volumes:
+      - ./aggregator_config.yml:/app/config.yml
+      - type: volume
+        source: aggrepos
+        target: /repos
+    networks: 
+      testnet:
+      aggregator:
+        aliases:
+          - app
+  aggregator-operator:
+    image: harmonia/operator
+    volumes:
+      - ./aggregator_config.yml:/app/config.yml
+      - type: volume
+        source: aggrepos
+        target: /repos
+    networks:
+      aggregator:
+        aliases:
+          - operator
+      testnet:
+        aliases:
+          - aggregator
+  # -------
+  push-edge-app:
+    build: ./edge
+    volumes:
+      - ./push_edge_config.yml:/app/config.yml
+      - type: volume
+        source: pushedgerepos
+        target: /repos
+    networks:
+      push-edge:
+        aliases:
+          - app
+  push-edge-operator:
+    image: harmonia/operator
+    volumes:
+      - ./push_edge_config.yml:/app/config.yml
+      - type: volume
+        source: pushedgerepos
+        target: /repos
+    networks:
+      push-edge:
+        aliases:
+          - operator
+      testnet:
+        aliases:
+          - push-edge
+  # -------
+  pull-edge-app:
+    build: ./edge
+    volumes:
+      - ./pull_edge_config.yml:/app/config.yml
+      - type: volume
+        source: pulledgerepos
+        target: /repos
+    networks:
+      pull-edge:
+        aliases:
+          - app
+  pull-edge-operator:
+    image: harmonia/operator
+    volumes:
+      - ./pull_edge_config.yml:/app/config.yml
+      - type: volume
+        source: pulledgerepos
+        target: /repos
+    networks:
+      pull-edge:
+        aliases:
+          - operator
+      testnet:
+        aliases:
+          - pull-edge
+
+networks:
+  # simulate network within a participant
+  aggregator:
+  push-edge:
+  pull-edge:
+
+  testnet:
+    external: true
+    name: integration-test
+volumes:
+  aggrepos:
+  pushedgerepos:
+  pulledgerepos:

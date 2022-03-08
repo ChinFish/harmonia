@@ -1,0 +1,17 @@
+.DS_Store
+__pycache__/
+go.sum
+*.pyc
+*.pb.go
+*pb2.py
+*pb2_grpc.py
+.vscode
+.python-version
+src/steward/steward
+src/steward/protos
+src/steward/credentialHelper.sh
+src/steward/mock
+src/protos/*_protos
+test/integration-test/registry_data/
+logs.txt
+examples/edge/data/*
