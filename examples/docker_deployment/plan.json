@@ -1,8 +1,0 @@
-{
-    "name": "MNIST",
-    "round": 10,
-    "edge": 2,
-    "EpR": 1,
-    "timeout": 86400,
-    "pretrainedModel": "master"
-}

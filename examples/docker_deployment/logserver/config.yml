@@ -2,6 +2,6 @@ stewardServerURI: "0.0.0.0:9080"
 gitUserToken: 1qaz_WSX
 tensorboardDataRootDir: /tensorboard_data
 modelRepos:
-  - gitHttpURL: http://logserver@172.29.140.68/gitea/global-model.git
-  - gitHttpURL: http://logserver@172.29.140.68/gitea/local-model1.git
-  - gitHttpURL: http://logserver@172.29.140.68/gitea/local-model2.git
+  - gitHttpURL: http://logserver@120.126.103.17:3000/gitea/global-model.git
+  - gitHttpURL: http://logserver@120.126.103.17:3000/gitea/local-model1.git
+  - gitHttpURL: http://logserver@120.126.103.17:3000/gitea/local-model2.git
