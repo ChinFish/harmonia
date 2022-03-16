@@ -147,13 +147,13 @@ curl -X PUT \
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://120.126.47.111:9080"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.6.23:9080"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/train-plan/hooks
 
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://120.126.47.111:9082"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.6.23:9082"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/train-plan/hooks
 
 curl -X POST \
@@ -166,7 +166,7 @@ curl -X POST \
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://120.126.103.17:9082"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.6.23:9082"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/global-model/hooks
 
 curl -X POST \
@@ -178,31 +178,31 @@ curl -X POST \
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://120.126.47.111:9081"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.6.23:9081"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/global-model/hooks
 
 # local-model1
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://120.126.47.111:9080"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.6.23:9080"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/local-model1/hooks
 
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://120.126.47.111:9081"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.6.23:9081"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/local-model1/hooks
 
 # local-model2
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://120.126.47.111:9080"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.6.23:9080"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/local-model2/hooks
 
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://120.126.47.111:9081"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.6.23:9081"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/local-model2/hooks
