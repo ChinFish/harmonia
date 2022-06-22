@@ -41,7 +41,7 @@ docker run -d \
     --publish 3000:3000 \
     --network mnist \
     --name gitea \
-    gitea/gitea
+    gitea/gitea:1.15.1
 
 # Notes:
 # `LFS_START_SERVER` enables git lfs in Gitea which is required by Harmonia.
@@ -396,10 +396,10 @@ curl -X POST \
 docker run -d \
     --env LFS_START_SERVER=true \
     --env INSTALL_LOCK=true \
-    --env ROOT_URL=http://10.24.211.161:3000 \
+    --env ROOT_URL=http://192.168.1.28:3000 \
     --publish 3000:3000 \
     --name gitea \
-    gitea/gitea
+    gitea/gitea:1.15.1
 
 # Notes:
 # `LFS_START_SERVER` enables git lfs in Gitea which is required by Harmonia.
