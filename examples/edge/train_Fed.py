@@ -5,17 +5,18 @@ import numpy as np
 import tensorflow as tf
 
 from utils import uniform_sampler, binary_sampler, normalization
-from data_loader import data_loader, map_loader
+from data_loader import data_loader, data_sampler, map_loader
 from models import Discriminator, Generator
 from sklearn.metrics import accuracy_score
 
 def gain(ref_pannel, save_model, epochs, batch_size=128, miss_rate=0.9, hint_rate=0.1, size=0, alpha=100):
     # Load data to npy
-    ori_data_x, miss_data_x, data_m = data_loader(ref_pannel, miss_rate, size)
+    ori_data_x = data_loader(ref_pannel)
+    ori_data_x, miss_data_x, data_m = data_sampler(ori_data_x, miss_rate, size)
 
     # Add and normalize map information
-    data_map = map_loader('/content/drive/MyDrive/GAIN/data/TWB_compare/chr22_select_all.map')
-    data_map = (data_map - np.min(data_map)) / (np.max(data_map) - np.min(data_map))
+    # data_map = map_loader('/content/drive/MyDrive/GAIN/data/TWB_compare/chr22_select_all.map')
+    # data_map = (data_map - np.min(data_map)) / (np.max(data_map) - np.min(data_map))
 
     # Define mask matrix (0 denotes missing)
     data_m = 1 - np.isnan(miss_data_x)
@@ -25,7 +26,7 @@ def gain(ref_pannel, save_model, epochs, batch_size=128, miss_rate=0.9, hint_rat
     no, dim = miss_data_x.shape
 
     # Data preprocessing
-    norm_data_batch = tf.data.Dataset.from_tensor_slices((ori_data_x, miss_data_x, data_m, ))
+    norm_data_batch = tf.data.Dataset.from_tensor_slices((ori_data_x, miss_data_x, data_m))
     norm_data_batch = norm_data_batch.shuffle(buffer_size=no)
     norm_data_batch = norm_data_batch.batch(batch_size)
 
@@ -48,8 +49,8 @@ def gain(ref_pannel, save_model, epochs, batch_size=128, miss_rate=0.9, hint_rat
     # Training loop
     for epoch in range(epochs):
         for step, (O_mb, X_mb, M_mb) in enumerate(norm_data_batch):
-            Map_mb = np.repeat(data_map[np.newaxis, :], X_mb.shape[0], axis=0)
-            Map_mb = tf.cast(Map_mb, dtype=tf.float32)
+            # Map_mb = np.repeat(data_map[np.newaxis, :], X_mb.shape[0], axis=0)
+            # Map_mb = tf.cast(Map_mb, dtype=tf.float32)
 
             X_mb = tf.cast(X_mb, dtype=tf.float32)
             M_mb = tf.cast(M_mb, dtype=tf.float32)
