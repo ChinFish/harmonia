@@ -8,6 +8,7 @@ import service_pb2
 import service_pb2_grpc
 import mnist
 import torch
+import train_Fed
 
 OPERATOR_URI = os.getenv('OPERATOR_URI', "localhost:8787")
 APPLICATION_URI = "0.0.0.0:7878"
@@ -29,7 +30,8 @@ def train(baseModel, output_model_path, epochs=1):
 
     base_weight_path = os.path.join("/repos", baseModel.path, "weights.tar")
     try:
-        metrics = mnist.train(data, output, epochs=epochs, resume=base_weight_path)
+        #metrics = mnist.train(data, output, epochs=epochs, resume=base_weight_path)
+        metrics = train_Fed.gain(data, output, epochs=epochs, resume=base_weight_path)
     except Exception as err:
         # print('metrics', err)
         logging.debug("metrics ERR : {}".format(err))
