@@ -9,9 +9,10 @@ import service_pb2_grpc
 
 OPERATOR_URI = os.getenv('OPERATOR_URI', '127.0.0.1:8787')
 APPLICATION_URI = os.getenv('APPLICATION_URI', '0.0.0.0:7878')
-LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
+LOG_LEVEL = os.environ.get('LOG_LEVEL', 'DEBUG')
 REPO_ROOT = os.environ.get('REPO_ROOT', '/repos')
-MODEL_FILENAME = os.environ.get('MODEL_FILENAME', 'weights.tar')
+G_MODEL_FILENAME = os.environ.get('MODEL_FILENAME', 'weights.tar_G')
+D_MODEL_FILENAME = os.environ.get('MODEL_FILENAME', 'weights.tar_D')
 STOP_EVENT = threading.Event()
 
 AGGREGATE_SUCCESS = 0
@@ -39,16 +40,28 @@ def aggregate(local_models, aggregated_model):
         send_result(AGGREGATE_FAIL)
         return
 
-    models = []
+    models_D = []
+    models_G = []
+    logging.debug("local models:",local_models)
     for local_model in local_models:
-        path = os.path.join(REPO_ROOT, local_model.path, MODEL_FILENAME)
-        if os.path.isfile(path):
-            models.append({'path': path, 'size': local_model.datasetSize})
-    output_path = os.path.join(REPO_ROOT, aggregated_model.path, MODEL_FILENAME)
+        path_G = os.path.join(REPO_ROOT, local_model.path, G_MODEL_FILENAME)
+        path_D = os.path.join(REPO_ROOT, local_model.path, D_MODEL_FILENAME)
+        #if os.path.isfile(path_G):
+        
+        models_G.append({'path_G': path_G, 'size_G': local_model.datasetSize})
+        #if os.path.isfile(path_D):
+        models_D.append({'path_D': path_D, 'size_D': local_model.datasetSize})
+        #logging.debug('path_G',path_G)
+        #logging.debug('path_D',path_D)
+    output_path_G = os.path.join(REPO_ROOT, aggregated_model.path, G_MODEL_FILENAME)
+    output_path_D = os.path.join(REPO_ROOT, aggregated_model.path, D_MODEL_FILENAME)
 
-    logging.debug("models: [%s]", models)
-    logging.debug("output_path: [%s]", output_path)
-    merge.merge(models, output_path)
+    logging.debug("models_D: %s", models_D)
+    logging.debug("models_G: %s", models_G)
+    logging.debug("output_path_G: %s", output_path_G)
+    logging.debug("output_path_D: %s", output_path_D)
+    merge.merge(models_G, output_path_G,'G')
+    merge.merge(models_D, output_path_D,'D')
 
     send_result(AGGREGATE_SUCCESS)
 

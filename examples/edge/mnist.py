@@ -136,4 +136,5 @@ def train(data_slice: list, output: str, batch_size=64, test_batch_size=1000,
 
     logging.info("[MNIST] Save Weights... [{}]".format(output))
     torch.save(model.state_dict(), output)
+    logging.info("model.state_dict():[{}]".format(model.state_dict()))
     return metrics

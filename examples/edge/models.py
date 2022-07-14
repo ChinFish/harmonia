@@ -20,8 +20,8 @@ def Discriminator(dim):
 
     return keras.Model(inputs=[x_mb, m_mb], outputs=x)
 
-
-def Generator_dense(dim):
+#Generator_Dense
+def Generator_Dense(dim):
     x_mb = keras.Input(shape=(dim,), name="x_mb")
     m_mb = keras.Input(shape=(dim,), name="m_mb")
 
@@ -37,6 +37,7 @@ def Generator_dense(dim):
 # CNN model
 # ===
 
+#Generator
 def Generator(dim):
     x_mb = keras.Input(shape=(dim,), name="x_mb")
     m_mb = keras.Input(shape=(dim,), name="m_mb")
