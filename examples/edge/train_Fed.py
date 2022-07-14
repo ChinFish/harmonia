@@ -26,13 +26,15 @@ def gain(data, output, epochs, resume=None, batch_size=128, miss_rate=0.9, hint_
     norm_data_batch = norm_data_batch.batch(batch_size)
 
     # Define model
-    if resume is not None:
-        discriminator = tf.keras.models.load_model("%s_D" % (resume))
-        generator = tf.keras.models.load_model("%s_G" % (resume))
-    else:
-        discriminator = Discriminator(int(dim))
-        generator = Generator(int(dim))
-    
+    logging.info('resume:{}'.format(resume))
+    try:
+      discriminator = tf.keras.models.load_model("%s_D" % (resume))
+      generator = tf.keras.models.load_model("%s_G" % (resume))
+    except Exception as err:
+      discriminator = Discriminator(int(dim))
+      generator = Generator(int(dim))
+      print("Load resume fails [%s]", err)
+      
     D_optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
     G_optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
     D_metric = tf.keras.metrics.BinaryAccuracy()
@@ -43,7 +45,8 @@ def gain(data, output, epochs, resume=None, batch_size=128, miss_rate=0.9, hint_
     G_loss_list = []
     D_acc_list = []
     G_acc_list = []
-
+    
+    logging.info("[MNIST] Training...")
     # Training loop
     for epoch in range(epochs):
         for step, (O_mb, X_mb, M_mb) in enumerate(norm_data_batch):
@@ -91,7 +94,8 @@ def gain(data, output, epochs, resume=None, batch_size=128, miss_rate=0.9, hint_
             if step % 10 == 0:
                 logging.info('Epoch:{:3d}\tSteps:{:3d}\tD_loss:{:.3g}\tG_loss:{:.3g}\tD_accuracy:{:.3g}\tG_accuracy:{:.3g}'.format(
                     epoch, step, D_loss, G_loss, D_acc, G_acc))
-
+                    
+    logging.info('Training Finish!!')
     # Save model
     # tf.saved_model.save(discriminator, '{}_D'.format(output))
     # tf.saved_model.save(generator, '{}_G'.format(output))

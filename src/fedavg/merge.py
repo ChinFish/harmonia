@@ -41,9 +41,9 @@ def merge(models, merged_output_path,DorG):
     else:
         logging.debug('Error!!DorG has problem!!')
 
-    logging.debug('weights_length[0]:{}'.format(len(weights[0])))
+    #logging.debug('weights_length[0]:{}'.format(len(weights[0])))
     weights = np.array(weights)
-    logging.debug('weights.shape:',weights.shape)
+    #logging.debug('weights.shape:',weights.shape)
 
     for i in range(len(weights)):
         if i == 0:
