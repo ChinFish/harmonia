@@ -42,7 +42,7 @@ def aggregate(local_models, aggregated_model):
 
     models_D = []
     models_G = []
-    logging.debug("local models:",local_models)
+    #logging.debug("local models:",local_models)
     for local_model in local_models:
         path_G = os.path.join(REPO_ROOT, local_model.path, G_MODEL_FILENAME)
         path_D = os.path.join(REPO_ROOT, local_model.path, D_MODEL_FILENAME)

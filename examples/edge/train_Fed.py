@@ -30,10 +30,11 @@ def gain(data, output, epochs, resume=None, batch_size=128, miss_rate=0.9, hint_
     try:
       discriminator = tf.keras.models.load_model("%s_D" % (resume))
       generator = tf.keras.models.load_model("%s_G" % (resume))
+      logging.info("Load resume success!")
     except Exception as err:
       discriminator = Discriminator(int(dim))
       generator = Generator(int(dim))
-      print("Load resume fails [%s]", err)
+      logging.info("Load resume fails [%s]", err)
       
     D_optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
     G_optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
@@ -106,4 +107,6 @@ def gain(data, output, epochs, resume=None, batch_size=128, miss_rate=0.9, hint_
     metrics = dict()
     metrics['G_loss'] = G_loss
     metrics['G_acc'] = G_acc
+    metrics['D_loss'] = D_loss
+    metrics['D_acc'] = D_acc
     return metrics  
