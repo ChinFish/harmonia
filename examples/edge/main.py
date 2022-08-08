@@ -23,7 +23,7 @@ def get_training_data():
     return __DATA
 
 def train(baseModel, output_model_path, epochs=1):
-    data = 'train/chr22_train_TWB_100.hap'
+    data = 'train/split1.hap'
     output = os.path.join("/repos", output_model_path, 'weights.tar')
     logging.info(f'input path: [{baseModel.path}]')
     logging.info(f'output path: [{output}]')
@@ -32,7 +32,7 @@ def train(baseModel, output_model_path, epochs=1):
     base_weight_path = os.path.join("/repos", baseModel.path, "weights.tar")
     try:
         #metrics = mnist.train(data, output, epochs=epochs, resume=base_weight_path)
-        metrics = train_Fed.gain(data, output, epochs=epochs, resume=base_weight_path)
+        metrics = train_Fed.gain(data, output, epochs=epochs, resume=base_weight_path, size=0)
     except Exception as err:
         # print('metrics', err)
         logging.debug("metrics ERR : {}".format(err))
@@ -45,7 +45,7 @@ def train(baseModel, output_model_path, epochs=1):
         stub = service_pb2_grpc.EdgeOperatorStub(channel)
         result = service_pb2.LocalTrainResult(
             error=0,
-            datasetSize=2500,
+            datasetSize=3500,
             metrics=metrics
         )
 

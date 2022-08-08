@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   app:
-    image: mnist_edge
+    image: yayalouis123/gain_edge1
     environment:
       OPERATOR_URI: operator:8787
     volumes:
