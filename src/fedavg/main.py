@@ -27,6 +27,14 @@ def send_result(err):
         channel = grpc.insecure_channel(OPERATOR_URI)
         stub = service_pb2_grpc.AggregateServerOperatorStub(channel)
         res = service_pb2.AggregateResult(error=err,)
+
+        #aggregate test performance
+        # res = service_pb2.LocalTrainResult(
+        #     error=0,
+        #     datasetSize=2500,
+        #     metrics=metrics
+        # )
+
         response = stub.AggregateFinish(res)
     except grpc.RpcError as rpc_error:
         logging.error("grpc error: [%s]", rpc_error)
@@ -62,6 +70,8 @@ def aggregate(local_models, aggregated_model):
     logging.debug("output_path_D: %s", output_path_D)
     merge.merge(models_G, output_path_G,'G')
     merge.merge(models_D, output_path_D,'D')
+
+
 
     send_result(AGGREGATE_SUCCESS)
 

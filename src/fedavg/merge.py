@@ -82,6 +82,12 @@ def merge(models, merged_output_path,DorG):
     # logging.debug('weights2:',weights[1])
     # logging.debug('aggregate weights:',generator[0].get_weights())
     logging.debug('merge creating...')
+
+    #calculate performance
+
+
+    #return metrics
+
     # discriminator = tf.keras.models.load_model('./test_weights1.tar_D').get_weights()
     # logging.debug('type:',type(discriminator))
     # logging.debug('discriminator:',discriminator)
