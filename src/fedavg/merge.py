@@ -4,26 +4,13 @@ import tensorflow as tf
 import numpy as np
 
 def merge(models, merged_output_path,DorG):
-    '''weights = [torch.load(m['path'], 'cpu') for m in models]
-    total_data_size = sum(m['size'] for m in models)
-    factors = [m['size'] / total_data_size for m in models]
-
-    merged = {}
-    for key in weights[0].keys():
-        merged[key] = sum([w[key] * f for w, f in zip(weights, factors)])
-        
-    logging.debug("weights: [%s]",weights)
-    logging.debug("merged: [%s]", merged)
-    logging.debug("merged_output_path: [%s]", merged_output_path)
-    torch.save(merged, merged_output_path)'''
     logging.info("Start aggregator!")
-    #mode = ""
+    
     if DorG == "D":
         logging.debug("This is Discriminator!!")
         discriminator = [tf.keras.models.load_model(m['path_D']) for m in models]
         weights = [w.get_weights() for w in discriminator]
         # logging.debug("D_Weights:", weights)
-        # mode = "D"
         total_data_size = sum(m['size_D'] for m in models)
         factors = [m['size_D'] / total_data_size for m in models]
         # logging.debug('D_factors', factors)
@@ -33,7 +20,6 @@ def merge(models, merged_output_path,DorG):
         generator = [tf.keras.models.load_model(m['path_G']) for m in models]
         weights = [w.get_weights() for w in generator]
         # logging.debug("G_Weights:", weights)
-        # mode = "G"
         total_data_size = sum(m['size_G'] for m in models)
         factors = [m['size_G'] / total_data_size for m in models]
         # logging.debug('G_factors', factors)
@@ -45,9 +31,9 @@ def merge(models, merged_output_path,DorG):
     weights = np.array(weights)
     #logging.debug('weights.shape:',weights.shape)
 
-    for i in range(len(weights)):
-        if i == 0:
-            merged = weights[i] + weights[i + 1]
+    #for i in range(len(weights)):
+        #if i == 0:
+            #merged = weights[i] + weights[i + 1]
 
     # logging.debug('merged shape:',len(merged))
     # logging.debug('merged shape:', len(merged[0]))
