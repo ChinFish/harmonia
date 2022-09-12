@@ -31,13 +31,6 @@ def merge(models, merged_output_path,DorG):
     weights = np.array(weights)
     #logging.debug('weights.shape:',weights.shape)
 
-<<<<<<< HEAD
-=======
-    #for i in range(len(weights)):
-        #if i == 0:
-            #merged = weights[i] + weights[i + 1]
-
->>>>>>> 3502c6d24b26a7b5e62ce3fd732e0d31a8c37125
     # logging.debug('merged shape:',len(merged))
     # logging.debug('merged shape:', len(merged[0]))
     factors_weights = []
