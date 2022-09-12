@@ -7,8 +7,8 @@ operatorGrpcServerURI: operator:8787
 appGrpcServerURI: app:7878
 gitUserToken: 1qaz_WSX
 aggregatorModelRepo:
-  gitHttpURL: http://edge2@192.168.1.27:3000/gitea/global-model.git
+  gitHttpURL: http://nycuedge@flserver.japaneast.cloudapp.azure.com/gitea/global-model.git
 edgeModelRepo:
-  gitHttpURL: http://edge2@192.168.1.27:3000/gitea/local-model2.git
+  gitHttpURL: http://flserver.japaneast.cloudapp.azure.com/gitea/NYCU-model
 trainPlanRepo:
-  gitHttpURL: http://edge2@192.168.1.27:3000/gitea/train-plan.git
+  gitHttpURL: http://nycuedge@flserver.japaneast.cloudapp.azure.com/gitea/train-plan.git
