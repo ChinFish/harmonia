@@ -69,8 +69,8 @@ def aggregate(local_models, aggregated_model):
     logging.debug("models_G: %s", models_G)
     logging.debug("output_path_G: %s", output_path_G)
     logging.debug("output_path_D: %s", output_path_D)
-    merge.merge(models_G, output_path_G,'G')
-    merge.merge(models_D, output_path_D,'D')
+    merge(models_G, output_path_G,'G')
+    merge(models_D, output_path_D,'D')
 
 
 
