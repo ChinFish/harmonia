@@ -11,7 +11,7 @@ services:
   operator:
     image: harmonia/operator
     ports:
-      - '9082:9080'
+      - '9080:9080'
     volumes:
       - ./config.yml:/app/config.yml
       - type: volume

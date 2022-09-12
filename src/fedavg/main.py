@@ -3,9 +3,10 @@ import logging
 import threading
 import os
 import grpc
-import merge
 import service_pb2
 import service_pb2_grpc
+from merge import merge
+
 
 OPERATOR_URI = os.getenv('OPERATOR_URI', '127.0.0.1:8787')
 APPLICATION_URI = os.getenv('APPLICATION_URI', '0.0.0.0:7878')
@@ -27,6 +28,14 @@ def send_result(err):
         channel = grpc.insecure_channel(OPERATOR_URI)
         stub = service_pb2_grpc.AggregateServerOperatorStub(channel)
         res = service_pb2.AggregateResult(error=err,)
+
+        #aggregate test performance
+        # res = service_pb2.LocalTrainResult(
+        #     error=0,
+        #     datasetSize=2500,
+        #     metrics=metrics
+        # )
+
         response = stub.AggregateFinish(res)
     except grpc.RpcError as rpc_error:
         logging.error("grpc error: [%s]", rpc_error)
@@ -97,4 +106,9 @@ def serve():
     server.stop(None)
 
 if __name__ == "__main__":
+    # models_G = ['Aggregate_test/model_1_G', 'Aggregate_test/model_2_G', 'Aggregate_test/model_3_G']
+    # models_D = ['Aggregate_test/model_1_D', 'Aggregate_test/model_2_D', 'Aggregate_test/model_3_D']
+    #
+    # merge(models=models_G, merged_output_path='Aggregate_test/Aggregate_G', DorG="G")
+    # merge(models=models_D, merged_output_path='Aggregate_test/Aggregate_D', DorG="D")
     serve()

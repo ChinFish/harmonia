@@ -109,4 +109,8 @@ def serve():
     server.stop(None)
 
 if __name__ == "__main__":
-    serve()
+    #serve()
+    metrics = train_Fed.gain(data='train/chr22_train_TWB_100.hap',
+                   output = r'C:\Users\yayalouis123\Desktop\harmonia\src\fedavg\Aggregate_test\model_3',
+                   epochs=1)
+    print(metrics)
