@@ -72,6 +72,8 @@ def aggregate(local_models, aggregated_model):
     merge.merge(models_G, output_path_G,'G')
     merge.merge(models_D, output_path_D,'D')
 
+
+
     send_result(AGGREGATE_SUCCESS)
 
 class AggregateServerServicer(service_pb2_grpc.AggregateServerAppServicer):
