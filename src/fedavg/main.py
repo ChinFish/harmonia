@@ -6,7 +6,7 @@ import grpc
 import service_pb2
 import service_pb2_grpc
 from merge import merge
-
+from merge_test import gain
 
 OPERATOR_URI = os.getenv('OPERATOR_URI', '127.0.0.1:8787')
 APPLICATION_URI = os.getenv('APPLICATION_URI', '0.0.0.0:7878')
@@ -27,14 +27,7 @@ def send_result(err):
     try:
         channel = grpc.insecure_channel(OPERATOR_URI)
         stub = service_pb2_grpc.AggregateServerOperatorStub(channel)
-        res = service_pb2.AggregateResult(error=err,)
-
-        #aggregate test performance
-        # res = service_pb2.LocalTrainResult(
-        #     error=0,
-        #     datasetSize=2500,
-        #     metrics=metrics
-        # )
+        res = service_pb2.AggregateResult(error=err)
 
         response = stub.AggregateFinish(res)
     except grpc.RpcError as rpc_error:
@@ -64,6 +57,7 @@ def aggregate(local_models, aggregated_model):
         #logging.debug('path_D',path_D)
     output_path_G = os.path.join(REPO_ROOT, aggregated_model.path, G_MODEL_FILENAME)
     output_path_D = os.path.join(REPO_ROOT, aggregated_model.path, D_MODEL_FILENAME)
+    output_path = os.path.join("/repos", aggregated_model.path, "weights.tar")
 
     logging.debug("models_D: %s", models_D)
     logging.debug("models_G: %s", models_G)
@@ -71,10 +65,25 @@ def aggregate(local_models, aggregated_model):
     logging.debug("output_path_D: %s", output_path_D)
     merge(models_G, output_path_G,'G')
     merge(models_D, output_path_D,'D')
+    metrics = gain(data='train/chr22_train_TWB_100.hap',model_path=output_path)
+    #calculate metrics
+    #aggregate datasize要改
+    try:
+        channel = grpc.insecure_channel(OPERATOR_URI)
+        stub = service_pb2_grpc.AggregateServerOperatorStub(channel)
+        res = service_pb2.AggregateResult(
+                error=0,
+                datasetSize=2500,
+                metrics=metrics
+        )
+        response = stub.AggregateFinish(res)
+    except grpc.RpcError as rpc_error:
+        logging.error("grpc error: {}".format(rpc_error))
+    except Exception as err:
+        logging.error('got error: {}'.format(err))
 
 
-
-    send_result(AGGREGATE_SUCCESS)
+    #send_result(AGGREGATE_SUCCESS)
 
 class AggregateServerServicer(service_pb2_grpc.AggregateServerAppServicer):
     def Aggregate(self, request, context):

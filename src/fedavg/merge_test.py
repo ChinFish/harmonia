@@ -3,12 +3,15 @@
 import logging
 import numpy as np
 import tensorflow as tf
+import logging
 
 from utils import uniform_sampler, binary_sampler
 from data_loader import data_loader, data_sampler
 from models import Discriminator, Generator
 
+
 def gain(data, model_path, miss_rate=0.9, hint_rate=0.1, size=0, alpha=100):
+    logging.debug('Begin merge test!!')
     # Load data to npy
     ori_data_x = data_loader(data)
     ori_data_x, miss_data_x, data_m = data_sampler(ori_data_x, miss_rate, size)
@@ -58,4 +61,5 @@ def gain(data, model_path, miss_rate=0.9, hint_rate=0.1, size=0, alpha=100):
     metrics['G_acc'] = G_acc
     metrics['D_loss'] = D_loss
     metrics['D_acc'] = D_acc
+    logging.debug('Finish merge test!!')
     return metrics  

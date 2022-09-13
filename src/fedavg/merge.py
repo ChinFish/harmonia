@@ -2,6 +2,7 @@
 import logging
 import tensorflow as tf
 import numpy as np
+from merge_test import gain
 
 def merge(models, merged_output_path,DorG):
     logging.info("Start aggregator!")
@@ -64,7 +65,7 @@ def merge(models, merged_output_path,DorG):
     logging.debug('merge creating...')
 
     #calculate performance
-
+    #metrics = gain(data='train/chr22_train_TWB_100.hap',model_path=merged_output_path)
 
     #return metrics
 
