@@ -65,15 +65,14 @@ def aggregate(local_models, aggregated_model):
     logging.debug("output_path_D: %s", output_path_D)
     merge(models_G, output_path_G,'G')
     merge(models_D, output_path_D,'D')
-    metrics = gain(data='train/chr22_train_TWB_100.hap',model_path=output_path)
+    
+    metrics = gain('train/split2.hap', output_path)
     #calculate metrics
-    #aggregate datasize要改
     try:
         channel = grpc.insecure_channel(OPERATOR_URI)
         stub = service_pb2_grpc.AggregateServerOperatorStub(channel)
         res = service_pb2.AggregateResult(
                 error=0,
-                datasetSize=2500,
                 metrics=metrics
         )
         response = stub.AggregateFinish(res)
