@@ -36,8 +36,8 @@ def gain(data, output, epochs, resume=None, batch_size=128, miss_rate=0.9, hint_
       generator = Generator(int(dim))
       logging.info("Load resume fails [%s]", err)
       
-    D_optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
-    G_optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
+    D_optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
+    G_optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
     D_metric = tf.keras.metrics.BinaryAccuracy()
     G_metric = tf.keras.metrics.BinaryAccuracy()
 
