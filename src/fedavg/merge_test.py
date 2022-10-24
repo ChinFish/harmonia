@@ -57,6 +57,7 @@ def gain(data, model_path, miss_rate=0.9, hint_rate=0.1, size=0, alpha=100):
     G_acc = G_metric.result().numpy()
 
     metrics = dict()
+    logging.debug('Record metrics!!')
     metrics['G_loss'] = G_loss
     metrics['G_acc'] = G_acc
     metrics['D_loss'] = D_loss

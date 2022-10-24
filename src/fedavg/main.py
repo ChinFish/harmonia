@@ -66,7 +66,11 @@ def aggregate(local_models, aggregated_model):
     merge(models_G, output_path_G,'G')
     merge(models_D, output_path_D,'D')
     
-    metrics = gain('train/split2.hap', output_path)
+    try:
+        metrics = gain('train/split2.hap', output_path)
+    except Exception as err:
+        # print('metrics', err)
+        logging.debug("metrics ERR : {}".format(err))
     #calculate metrics
     try:
         channel = grpc.insecure_channel(OPERATOR_URI)
@@ -76,6 +80,7 @@ def aggregate(local_models, aggregated_model):
                 metrics=metrics
         )
         response = stub.AggregateFinish(res)
+        
     except grpc.RpcError as rpc_error:
         logging.error("grpc error: {}".format(rpc_error))
     except Exception as err:
