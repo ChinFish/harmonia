@@ -489,7 +489,7 @@ rm -rf train-plan
 You can check FL result within Gitea web UI (http://10.24.211.161:3000) or Tensorboard UI (http://10.24.211.161:6006).
 
 # 多機教學(三個VM)
-以下使用10.24.211.111、161兩台伺服器示範
+以下使用192.168.1.27、28、29三台伺服器示範
 
 基本上跟單機大同小異，但需要做以下設定:
 
@@ -508,64 +508,64 @@ You can check FL result within Gitea web UI (http://10.24.211.161:3000) or Tenso
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://10.24.211.161:9080"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.1.27:9080"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/train-plan/hooks
 
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://10.24.211.161:9082"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.1.28:9080"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/train-plan/hooks
 
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://10.24.211.111:9080"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.1.29:9080"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/train-plan/hooks
 
 # global-model
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://10.24.211.161:9082"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.1.28:9080"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/global-model/hooks
 
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://10.24.211.111:9080"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.1.29:9080"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/global-model/hooks
 
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://10.24.211.161:9081"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.1.27:9081"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/global-model/hooks
 
 # local-model1
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://10.24.211.161:9080"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.1.27:9080"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/local-model1/hooks
 
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://10.24.211.161:9081"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.1.27:9081"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/local-model1/hooks
 
 # local-model2
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://10.24.211.161:9080"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.1.27:9080"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/local-model2/hooks
 
 curl -X POST \
     -H "accept: application/json" \
     -H "Content-Type: application/json" \
-    -d '{"active": true, "config": {"content_type": "json", "url": "http://10.24.211.161:9081"}, "events": ["push"], "type": "gitea"}' \
+    -d '{"active": true, "config": {"content_type": "json", "url": "http://192.168.1.27:9081"}, "events": ["push"], "type": "gitea"}' \
     http://gitea:password@127.0.0.1:3000/api/v1/repos/gitea/local-model2/hooks
 ```
 
@@ -608,12 +608,12 @@ curl -X POST \
     appGrpcServerURI: app:7878
     gitUserToken: 1qaz_WSX
     aggregatorModelRepo:
-        gitHttpURL: http://aggregator@10.24.211.161:3000/gitea/global-model.git
+        gitHttpURL: http://aggregator@192.168.1.27:3000/gitea/global-model.git
     edgeModelRepos:
-      - gitHttpURL: http://aggregator@10.24.211.161:3000/gitea/local-model1.git
-      - gitHttpURL: http://aggregator@10.24.211.161:3000/gitea/local-model2.git
+      - gitHttpURL: http://aggregator@192.168.1.27:3000/gitea/local-model1.git
+      - gitHttpURL: http://aggregator@192.168.1.27:3000/gitea/local-model2.git
     trainPlanRepo:
-        gitHttpURL: http://aggregator@10.24.211.161:3000/gitea/train-plan.git
+        gitHttpURL: http://aggregator@192.168.1.27:3000/gitea/train-plan.git
     ```
 
 - edge1	
@@ -656,11 +656,11 @@ curl -X POST \
     appGrpcServerURI: app:7878
     gitUserToken: 1qaz_WSX
     aggregatorModelRepo:
-      gitHttpURL: http://edge1@10.24.211.161:3000/gitea/global-model.git
+      gitHttpURL: http://edge1@192.168.1.27:3000/gitea/global-model.git
     edgeModelRepo:
-      gitHttpURL: http://edge1@10.24.211.161:3000/gitea/local-model1.git
+      gitHttpURL: http://edge1@192.168.1.27:3000/gitea/local-model1.git
     trainPlanRepo:
-      gitHttpURL: http://edge1@10.24.211.161:3000/gitea/train-plan.git
+      gitHttpURL: http://edge1@192.168.1.27:3000/gitea/train-plan.git
     ```
 
 - edge2
@@ -706,11 +706,11 @@ curl -X POST \
     appGrpcServerURI: app:7878
     gitUserToken: 1qaz_WSX
     aggregatorModelRepo:
-      gitHttpURL: http://edge2@10.24.211.161:3000/gitea/global-model.git
+      gitHttpURL: http://edge2@192.168.1.27:3000/gitea/global-model.git
     edgeModelRepo:
-      gitHttpURL: http://edge2@10.24.211.161:3000/gitea/local-model2.git
+      gitHttpURL: http://edge2@192.168.1.27:3000/gitea/local-model2.git
     trainPlanRepo:
-      gitHttpURL: http://edge2@10.24.211.161:3000/gitea/train-plan.git
+      gitHttpURL: http://edge2@192.168.1.27:3000/gitea/train-plan.git
     ```
 
 - logserver
@@ -746,9 +746,9 @@ curl -X POST \
     gitUserToken: 1qaz_WSX
     tensorboardDataRootDir: /tensorboard_data
     modelRepos:
-      - gitHttpURL: http://logserver@10.24.211.161:3000/gitea/global-model.git
-      - gitHttpURL: http://logserver@10.24.211.161:3000/gitea/local-model1.git
-      - gitHttpURL: http://logserver@10.24.211.161:3000/gitea/local-model2.git
+      - gitHttpURL: http://logserver@192.168.1.27:3000/gitea/global-model.git
+      - gitHttpURL: http://logserver@192.168.1.27:3000/gitea/local-model1.git
+      - gitHttpURL: http://logserver@192.168.1.27:3000/gitea/local-model2.git
 
     ```
 ### Docker Deployment
